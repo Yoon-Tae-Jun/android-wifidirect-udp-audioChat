@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends FragmentActivity {
+    private static Context context;
     private final IntentFilter intentFilter = new IntentFilter();
     WifiP2pManager.Channel channel;
     WifiP2pManager mManager;
@@ -35,6 +36,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.context = this;
+
         TextView text1 = findViewById(R.id.text1);
         Button btn = findViewById(R.id.btn1);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,10 @@ public class MainActivity extends FragmentActivity {
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION); //피어 목록 변경 여부
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION); // wifi p2p 연결 상태 변경 여부
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION); // 디바이스 세부 정보 변경 여부
+    }
+
+    public static Context getMainActivityContext(){
+        return MainActivity.context;
     }
 
     private void StartDiscoverPeer(){
